@@ -1,0 +1,2 @@
+- KRAM uses a persisted Zustand store in `src/lib/store.ts` for local client state.
+- Signed-in pages live under the pathless `_app` layout, which redirects to `/login` client-side.
