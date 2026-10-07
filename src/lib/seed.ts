@@ -18,6 +18,7 @@ const projectDefs: [string, string, ProjectStatus, number, number, number][] = [
   ["Partner API Program", "Publish versioned integrations and onboarding tools for strategic technology partners.", "in_progress", 5, 80, -8],
   ["Quarterly Planning Kit", "Reusable planning templates for goals, dependencies, risks and team reviews.", "completed", -75, -25, -80],
   ["Product Research Repository", "Centralize interview insights, market signals and opportunity briefs for product teams.", "in_progress", -10, 50, -12],
+  ["Security Certification Readiness", "Coordinate evidence, control owners and audit milestones for annual certification.", "in_progress", -20, 65, -21],
 ];
 
 const taskDefs: [number, string, Priority, TaskStatus, number, string[]][] = [
@@ -71,6 +72,10 @@ const taskDefs: [number, string, Priority, TaskStatus, number, string[]][] = [
   [12, "Tag competitor observations", "medium", "in_progress", 4, ["research", "analytics"]],
   [12, "Publish opportunity brief template", "medium", "pending", 13, ["documentation", "planning"]],
   [12, "Schedule monthly insight review", "low", "pending", 22, ["operations"]],
+  [13, "Map control owners", "high", "completed", -9, ["security", "planning"]],
+  [13, "Collect audit evidence", "high", "in_progress", 2, ["security", "documentation"]],
+  [13, "Run access-control review", "medium", "pending", 16, ["security", "testing"]],
+  [13, "Prepare auditor walkthrough", "medium", "pending", 31, ["documentation", "review"]],
 ];
 
 export function seedFor(userId: string) {
