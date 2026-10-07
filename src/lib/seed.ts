@@ -11,6 +11,12 @@ const projectDefs: [string, string, ProjectStatus, number, number, number][] = [
   ["E-Commerce Redesign", "Refresh of product pages, cart and checkout to lift conversion on mobile.", "completed", -90, -10, -95],
   ["Employee Onboarding System", "Guided first-week checklists, document collection and buddy assignments.", "in_progress", -14, 40, -16],
   ["Mobile Banking Prototype", "Clickable prototype for savings goals, transfers and card controls.", "not_started", 14, 60, -3],
+  ["Community Health Portal", "A secure patient portal for appointments, care plans and provider messaging.", "in_progress", -18, 55, -20],
+  ["Sustainable Packaging Launch", "Coordinate supplier research, prototypes and retail rollout for a lower-waste package.", "in_progress", -8, 35, -10],
+  ["Learning Hub Migration", "Move course content, assessments and learner analytics into a unified platform.", "not_started", 20, 90, -2],
+  ["Support Operations Refresh", "Improve triage workflows, service-level reporting and the internal knowledge base.", "completed", -120, -15, -125],
+  ["Partner API Program", "Publish versioned integrations and onboarding tools for strategic technology partners.", "in_progress", 5, 80, -8],
+  ["Quarterly Planning Kit", "Reusable planning templates for goals, dependencies, risks and team reviews.", "completed", -75, -25, -80],
 ];
 
 const taskDefs: [number, string, Priority, TaskStatus, number, string[]][] = [
@@ -39,6 +45,27 @@ const taskDefs: [number, string, Priority, TaskStatus, number, string[]][] = [
   [5, "Map savings goal user journey", "medium", "pending", 16, ["research", "design"]],
   [5, "Prototype card freeze interaction", "high", "pending", 21, ["design"]],
   [5, "Review transfer screens with compliance", "medium", "pending", 28, ["research"]],
+  [6, "Map appointment booking journey", "high", "completed", -9, ["research", "design"]],
+  [6, "Build provider messaging inbox", "high", "in_progress", 4, ["frontend", "backend"]],
+  [6, "Add consent preferences", "medium", "pending", 12, ["security", "backend"]],
+  [6, "Run accessibility review", "low", "pending", 18, ["testing"]],
+  [7, "Shortlist material suppliers", "medium", "completed", -4, ["research"]],
+  [7, "Approve package prototypes", "high", "in_progress", 7, ["design", "review"]],
+  [7, "Prepare retail launch checklist", "medium", "pending", 20, ["planning"]],
+  [7, "Measure packaging waste reduction", "low", "pending", 32, ["analytics"]],
+  [8, "Audit legacy course content", "high", "pending", 15, ["research"]],
+  [8, "Define migration mapping", "medium", "pending", 24, ["backend"]],
+  [8, "Design learner progress view", "medium", "pending", 35, ["frontend", "design"]],
+  [8, "Pilot migration with instructors", "low", "pending", 48, ["testing"]],
+  [9, "Document support escalation rules", "medium", "completed", -22, ["operations"]],
+  [9, "Create service-level dashboard", "high", "completed", -18, ["analytics", "frontend"]],
+  [9, "Archive outdated help articles", "low", "completed", -12, ["content"]],
+  [10, "Publish partner authentication guide", "high", "in_progress", 6, ["documentation", "security"]],
+  [10, "Build webhook retry handling", "high", "pending", 16, ["backend"]],
+  [10, "Create integration status page", "medium", "pending", 27, ["frontend"]],
+  [11, "Collect team planning feedback", "low", "completed", -30, ["research"]],
+  [11, "Refresh quarterly goal templates", "medium", "completed", -24, ["planning", "design"]],
+  [11, "Publish dependency review guide", "low", "completed", -19, ["documentation"]],
 ];
 
 export function seedFor(userId: string) {

@@ -12,6 +12,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { AuthLayout } from "@/components/kram/auth-layout";
 import { FieldError } from "@/components/kram/bits";
 import { useKram } from "@/lib/store";
+import { ApiError } from "@/services/api";
 
 export const Route = createFileRoute("/login")({
   head: () => ({
@@ -44,14 +45,17 @@ function Login() {
 
   const onSubmit = async (v: z.infer<typeof schema>) => {
     setError(null);
-    const u = await login(v.email, v.password);
-    if (!u) {
-      setError("Invalid email or password. Please try again.");
-      toast.error("Invalid credentials");
-      return;
+    try {
+      const u = await login(v.email, v.password);
+      toast.success(`Welcome back, ${u!.fullName.split(" ")[0]}`);
+      navigate({ to: "/dashboard" });
+    } catch (err) {
+      const message = err instanceof ApiError
+        ? err.message
+        : "Unable to sign in right now. Please try again.";
+      setError(message);
+      toast.error(message);
     }
-    toast.success(`Welcome back, ${u.fullName.split(" ")[0]}`);
-    navigate({ to: "/dashboard" });
   };
 
   return (

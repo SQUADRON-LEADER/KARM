@@ -9,12 +9,7 @@ import { forwardRef, type ReactNode, type SelectHTMLAttributes } from "react";
 export function Logo({ className }: { className?: string }) {
   return (
     <div className={cn("flex items-center gap-2", className)}>
-      <div className="grid h-7 w-7 grid-cols-2 gap-[3px] rounded-md bg-foreground p-[5px]">
-        <span className="rounded-[2px] bg-primary" />
-        <span className="rounded-[2px] bg-background/80" />
-        <span className="rounded-[2px] bg-background/80" />
-        <span className="rounded-[2px] bg-background/40" />
-      </div>
+      <img src="/logo.png" alt="KRAM" className="h-7 w-7 rounded-md object-cover" />
       <span className="text-[17px] font-semibold tracking-[0.18em] text-foreground">KRAM</span>
     </div>
   );

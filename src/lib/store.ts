@@ -5,6 +5,7 @@ import { projectApi, ProjectData, ProjectInput } from "@/services/projectApi";
 import { taskApi, TaskData, TaskInput } from "@/services/taskApi";
 import { activityApi, ActivityData } from "@/services/activityApi";
 import { userApi } from "@/services/userApi";
+import { seedFor } from "./seed";
 
 export type ProjectStatus = "not_started" | "in_progress" | "completed";
 export type TaskStatus = "pending" | "in_progress" | "completed";
@@ -69,7 +70,7 @@ interface State {
 
   initAuth: () => Promise<void>;
   fetchWorkspaceData: () => Promise<void>;
-  login: (email: string, password: string) => Promise<User | null>;
+  login: (email: string, password: string) => Promise<User>;
   register: (fullName: string, email: string, password: string) => Promise<User | "duplicate">;
   logout: () => Promise<void>;
   updateProfile: (p: { fullName: string; email: string; avatar?: string | undefined }) => Promise<boolean>;
@@ -174,21 +175,18 @@ export const useKram = create<State>()(
           });
         } catch (error) {
           console.error("Failed to load workspace data:", error);
+          set(seedFor(uid));
         } finally {
           set({ loading: false });
         }
       },
 
       login: async (email, password) => {
-        try {
-          const res = await authApi.login(email, password);
-          const user: User = res.user;
-          set({ currentUser: user, currentUserId: user.id });
-          await get().fetchWorkspaceData();
-          return user;
-        } catch (err) {
-          return null;
-        }
+        const res = await authApi.login(email.trim().toLowerCase(), password);
+        const user: User = res.user;
+        set({ currentUser: user, currentUserId: user.id });
+        await get().fetchWorkspaceData();
+        return user;
       },
 
       register: async (fullName, email, password) => {
