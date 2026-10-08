@@ -64,7 +64,7 @@ export class AuthController {
       const token = req.cookies?.[REFRESH_COOKIE_NAME] || req.body?.refreshToken;
       const isMobileClient = req.get("X-Client") === "mobile";
       if (!token) {
-        sendError(res, "Refresh token missing. Please sign in.", 401);
+        sendSuccess(res, null, "No active session", 200);
         return;
       }
 

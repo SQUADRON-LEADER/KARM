@@ -106,6 +106,13 @@ describe("Auth Endpoints", () => {
     expect(refreshRes.body.data.user.email).toBe(testUser.email.toLowerCase());
   });
 
+  it("should treat a missing refresh token as an anonymous session", async () => {
+    const refreshRes = await request(app).post("/api/auth/refresh");
+
+    expect(refreshRes.status).toBe(200);
+    expect(refreshRes.body.data).toBeNull();
+  });
+
   it("should logout successfully and clear refresh cookie", async () => {
     const res = await request(app).post("/api/auth/logout");
 

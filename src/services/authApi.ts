@@ -15,7 +15,7 @@ export interface AuthResponse {
 export const authApi = {
   register: async (fullName: string, email: string, password: string): Promise<AuthResponse> => {
     const res = await api.post<AuthResponse>("/auth/register", { fullName, email, password });
-    if (res.accessToken) {
+    if (res?.accessToken) {
       setAccessToken(res.accessToken);
     }
     return res;
@@ -29,9 +29,9 @@ export const authApi = {
     return res;
   },
 
-  refresh: async (): Promise<AuthResponse> => {
-    const res = await api.post<AuthResponse>("/auth/refresh");
-    if (res.accessToken) {
+  refresh: async (): Promise<AuthResponse | null> => {
+    const res = await api.post<AuthResponse | null>("/auth/refresh");
+    if (res?.accessToken) {
       setAccessToken(res.accessToken);
     }
     return res;

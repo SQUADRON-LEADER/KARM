@@ -1,4 +1,4 @@
-const API_BASE = (import.meta.env.VITE_API_URL as string) || "http://localhost:5000/api";
+const API_BASE = (import.meta.env["VITE_API_URL"] as string) || "http://localhost:5000/api";
 
 let accessToken: string | null = null;
 let isRefreshing = false;
@@ -41,7 +41,7 @@ export interface ApiResponse<T = any> {
 
 export class ApiError extends Error {
   public statusCode: number;
-  public errors?: any[];
+  public errors: any[] | undefined;
 
   constructor(message: string, statusCode: number, errors?: any[]) {
     super(message);
@@ -80,7 +80,7 @@ async function request<T = any>(
   }
 
   // Handle 401 Unauthorized with token refresh (once)
-  if (response.status === 401 && !isRetry && !endpoint.includes("/auth/login") && !endpoint.includes("/auth/register")) {
+  if (response.status === 401 && !isRetry && !endpoint.includes("/auth/login") && !endpoint.includes("/auth/register") && !endpoint.includes("/auth/refresh")) {
     if (isRefreshing) {
       return new Promise<T>((resolve, reject) => {
         failedQueue.push({
@@ -148,21 +148,21 @@ export const api = {
     request<T>(endpoint, {
       ...options,
       method: "POST",
-      body: body ? JSON.stringify(body) : undefined,
+      body: body ? JSON.stringify(body) : null,
     }),
 
   put: <T = any>(endpoint: string, body?: any, options?: RequestInit) =>
     request<T>(endpoint, {
       ...options,
       method: "PUT",
-      body: body ? JSON.stringify(body) : undefined,
+      body: body ? JSON.stringify(body) : null,
     }),
 
   patch: <T = any>(endpoint: string, body?: any, options?: RequestInit) =>
     request<T>(endpoint, {
       ...options,
       method: "PATCH",
-      body: body ? JSON.stringify(body) : undefined,
+      body: body ? JSON.stringify(body) : null,
     }),
 
   delete: <T = any>(endpoint: string, options?: RequestInit) =>
