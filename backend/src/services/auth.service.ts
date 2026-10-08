@@ -3,6 +3,7 @@ import { hashPassword, comparePassword } from "../utils/password.js";
 import { generateAccessToken, generateRefreshToken, verifyRefreshToken } from "../utils/jwt.js";
 import { AppError } from "../utils/apiResponse.js";
 import { ActivityService } from "./activity.service.js";
+import { seedDemoWorkspace } from "./demoSeed.service.js";
 
 export interface AuthResult {
   user: {
@@ -34,6 +35,7 @@ export class AuthService {
 
     // Log account creation activity
     await ActivityService.log(user._id, "ACCOUNT_CREATED", "Created KRAM workspace");
+    await seedDemoWorkspace(user._id);
 
     const tokenPayload = { userId: user._id.toString(), email: user.email };
     const accessToken = generateAccessToken(tokenPayload);

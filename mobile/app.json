@@ -1,0 +1,15 @@
+{
+  "expo": {
+    "name": "KRAM",
+    "slug": "kram-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "splash": { "backgroundColor": "#f7f1e8" },
+    "android": {
+      "package": "com.kram.projectmanager",
+      "adaptiveIcon": { "backgroundColor": "#d96b45" }
+    },
+    "plugins": ["expo-secure-store"]
+  }
+}

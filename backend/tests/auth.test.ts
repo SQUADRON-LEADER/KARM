@@ -23,6 +23,14 @@ describe("Auth Endpoints", () => {
     expect(res.body.data.user.passwordHash).toBeUndefined();
     expect(res.body.data.accessToken).toBeDefined();
     expect(res.headers["set-cookie"]).toBeDefined();
+
+    const token = res.body.data.accessToken;
+    const [projectsRes, tasksRes] = await Promise.all([
+      request(app).get("/api/projects").set("Authorization", `Bearer ${token}`),
+      request(app).get("/api/tasks").set("Authorization", `Bearer ${token}`),
+    ]);
+    expect(projectsRes.body.data).toHaveLength(6);
+    expect(tasksRes.body.data).toHaveLength(24);
   });
 
   it("should prevent duplicate registration with the same email", async () => {

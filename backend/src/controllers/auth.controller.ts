@@ -17,6 +17,7 @@ export class AuthController {
     try {
       const { fullName, email, password } = req.body;
       const result = await AuthService.register(fullName, email, password);
+      const isMobileClient = req.get("X-Client") === "mobile";
 
       res.cookie(REFRESH_COOKIE_NAME, result.refreshToken, COOKIE_OPTIONS);
 
@@ -25,6 +26,7 @@ export class AuthController {
         {
           user: result.user,
           accessToken: result.accessToken,
+          ...(isMobileClient ? { refreshToken: result.refreshToken } : {}),
         },
         "User registered successfully",
         201
@@ -38,6 +40,7 @@ export class AuthController {
     try {
       const { email, password } = req.body;
       const result = await AuthService.login(email, password);
+      const isMobileClient = req.get("X-Client") === "mobile";
 
       res.cookie(REFRESH_COOKIE_NAME, result.refreshToken, COOKIE_OPTIONS);
 
@@ -46,6 +49,7 @@ export class AuthController {
         {
           user: result.user,
           accessToken: result.accessToken,
+          ...(isMobileClient ? { refreshToken: result.refreshToken } : {}),
         },
         "Login successful",
         200
@@ -58,6 +62,7 @@ export class AuthController {
   public static async refresh(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
       const token = req.cookies?.[REFRESH_COOKIE_NAME] || req.body?.refreshToken;
+      const isMobileClient = req.get("X-Client") === "mobile";
       if (!token) {
         sendError(res, "Refresh token missing. Please sign in.", 401);
         return;
@@ -72,6 +77,7 @@ export class AuthController {
         {
           user: result.user,
           accessToken: result.accessToken,
+          ...(isMobileClient ? { refreshToken: result.refreshToken } : {}),
         },
         "Session refreshed successfully",
         200
