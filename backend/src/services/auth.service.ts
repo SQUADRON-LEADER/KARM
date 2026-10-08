@@ -3,7 +3,7 @@ import { hashPassword, comparePassword } from "../utils/password.js";
 import { generateAccessToken, generateRefreshToken, verifyRefreshToken } from "../utils/jwt.js";
 import { AppError } from "../utils/apiResponse.js";
 import { ActivityService } from "./activity.service.js";
-import { seedDemoWorkspace } from "./demoSeed.service.js";
+import { ensureDemoWorkspace, seedDemoWorkspace } from "./demoSeed.service.js";
 
 export interface AuthResult {
   user: {
@@ -67,6 +67,8 @@ export class AuthService {
       throw new AppError("Invalid email or password.", 401);
     }
 
+    await ensureDemoWorkspace(user._id);
+
     const tokenPayload = { userId: user._id.toString(), email: user.email };
     const accessToken = generateAccessToken(tokenPayload);
     const refreshToken = generateRefreshToken(tokenPayload);
@@ -90,6 +92,8 @@ export class AuthService {
       if (!user) {
         throw new AppError("User account no longer exists.", 401);
       }
+
+      await ensureDemoWorkspace(user._id);
 
       const tokenPayload = { userId: user._id.toString(), email: user.email };
       const newAccessToken = generateAccessToken(tokenPayload);

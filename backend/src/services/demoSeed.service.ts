@@ -89,3 +89,10 @@ export async function seedDemoWorkspace(userId: mongoose.Types.ObjectId): Promis
     metadata: { projectCount: createdProjects.length, taskCount: tasks.length },
   });
 }
+
+export async function ensureDemoWorkspace(userId: mongoose.Types.ObjectId): Promise<void> {
+  const projectCount = await Project.countDocuments({ userId });
+  if (projectCount === 0) {
+    await seedDemoWorkspace(userId);
+  }
+}

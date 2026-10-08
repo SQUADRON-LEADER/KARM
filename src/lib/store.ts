@@ -208,6 +208,7 @@ export const useKram = create<State>()(
               },
             ],
           });
+          await get().fetchWorkspaceData();
           return user;
         } catch (err: any) {
           if (err.statusCode === 409 || err.message?.includes("already exists")) {
