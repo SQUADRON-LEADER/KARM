@@ -48,6 +48,8 @@ For an Android emulator, use `http://10.0.2.2:5000/api`. For a physical device, 
 
 For production, set `JWT_ACCESS_SECRET`, `JWT_REFRESH_SECRET`, and `MONGODB_URI` in `backend/.env`; the backend rejects missing production secrets.
 
+Deployment instructions for Render and Vercel are in [`docs/deployment.md`](docs/deployment.md).
+
 ## Built With
 
 - TanStack Start

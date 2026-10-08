@@ -39,8 +39,10 @@ export function createApp(): Express {
         // Allow requests with no origin (like mobile apps, curl, or server-to-server)
         if (!origin || allowedOrigins.includes(origin)) {
           callback(null, true);
+        } else if (env.NODE_ENV !== "production") {
+          callback(null, true);
         } else {
-          callback(null, true); // Allow all in dev/test, or strict if configured
+          callback(new Error("Origin is not allowed by CORS"));
         }
       },
       credentials: true,
