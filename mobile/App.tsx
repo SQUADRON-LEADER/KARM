@@ -4,6 +4,7 @@ import {
   ActivityIndicator,
   Alert,
   FlatList,
+  Image,
   Pressable,
   RefreshControl,
   SafeAreaView,
@@ -44,7 +45,7 @@ function AuthScreen({ onAuthenticated }: { onAuthenticated: (user: User) => void
     catch (err) { setError(err instanceof Error ? err.message : "Unable to sign in."); }
     finally { setBusy(false); }
   };
-  return <SafeAreaView style={styles.authScreen}><StatusBar barStyle="dark-content" /><View style={styles.authInner}><Text style={styles.logo}>KRAM</Text><Text style={styles.eyebrow}>PROJECT WORKSPACE</Text><Text style={styles.authTitle}>{mode === "login" ? "Welcome back." : "Start with a clear plan."}</Text><Text style={styles.authCopy}>{mode === "login" ? "Your projects and tasks, ready when you are." : "Create one account for web and mobile."}</Text>{mode === "register" && <Field value={fullName} onChangeText={setFullName} placeholder="Full name" />}<Field value={email} onChangeText={setEmail} placeholder="Email address" /><Field value={password} onChangeText={setPassword} placeholder="Password" secureTextEntry />{error ? <Text style={styles.error}>{error}</Text> : null}<Button label={busy ? "Working..." : mode === "login" ? "Sign in" : "Create account"} onPress={submit} /><Pressable onPress={() => { setMode(mode === "login" ? "register" : "login"); setError(""); }}><Text style={styles.switchText}>{mode === "login" ? "Need an account? Create one" : "Already registered? Sign in"}</Text></Pressable></View></SafeAreaView>;
+  return <SafeAreaView style={styles.authScreen}><StatusBar barStyle="dark-content" /><View style={styles.authInner}><Image source={require("./assets/logo.png")} style={styles.logoImage} resizeMode="contain" /><Text style={styles.eyebrow}>PROJECT WORKSPACE</Text><Text style={styles.authTitle}>{mode === "login" ? "Welcome back." : "Start with a clear plan."}</Text><Text style={styles.authCopy}>{mode === "login" ? "Your projects and tasks, ready when you are." : "Create one account for web and mobile."}</Text>{mode === "register" && <Field value={fullName} onChangeText={setFullName} placeholder="Full name" />}<Field value={email} onChangeText={setEmail} placeholder="Email address" /><Field value={password} onChangeText={setPassword} placeholder="Password" secureTextEntry />{error ? <Text style={styles.error}>{error}</Text> : null}<Button label={busy ? "Working..." : mode === "login" ? "Sign in" : "Create account"} onPress={submit} /><Pressable onPress={() => { setMode(mode === "login" ? "register" : "login"); setError(""); }}><Text style={styles.switchText}>{mode === "login" ? "Need an account? Create one" : "Already registered? Sign in"}</Text></Pressable></View></SafeAreaView>;
 }
 
 function Stat({ label, value }: { label: string; value: number }) { return <View style={styles.stat}><Text style={styles.statValue}>{value}</Text><Text style={styles.statLabel}>{label}</Text></View>; }
