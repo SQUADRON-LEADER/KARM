@@ -17,7 +17,7 @@ The backend service uses `backend/` as its root directory, builds with `npm ci &
 
 1. Open Vercel and import the same GitHub repository.
 2. Keep the repository root as the project root.
-3. Vercel uses [`vercel.json`](../vercel.json), runs `npm install` followed by `npm run build`, and selects Nitro's Vercel server preset. `npm install` is intentional because this repository has optional native packages that are platform-specific.
+3. Vercel uses [`vercel.json`](../vercel.json), runs `npm install` followed by `npm run build`, and detects the TanStack Start Nitro server. `npm install` is intentional because this repository has optional native packages that are platform-specific.
 4. Add this environment variable for **Production**, **Preview**, and **Development** as needed:
 
 ```text
